@@ -1,6 +1,6 @@
 # QuizGame-AlanCasasnovas-CDOF1
 
-Simple adaptable Quiz Game for a school workshop
+Simple adaptable Quiz Game for a school workshop. There are a number of questions on general themes, and you can add questions to the quiz.
 
 ## Getting Started
 
