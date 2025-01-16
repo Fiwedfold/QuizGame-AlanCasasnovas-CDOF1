@@ -1,0 +1,22 @@
+[
+    {
+        "question": "What is the complete name of Dracula in Castlevania ?",
+        "options": [
+            "A) Count Dracula",
+            "B) Vlad Dracula",
+            "C) Vlad Tepe Dracula",
+            "D) Vlad Tepes Dracula"
+        ],
+        "answer": "D"
+    },
+    {
+        "question": "Which dragon is Nora's sibling in the series Wakfu ?",
+        "options": [
+            "A) Grougaloragran",
+            "B) Efrim",
+            "C) Baltazar",
+            "D) Adama\u00ef"
+        ],
+        "answer": "B"
+    }
+]

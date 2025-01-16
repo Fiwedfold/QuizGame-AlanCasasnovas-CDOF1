@@ -1,3 +1,32 @@
+import json
+
+def load_questions(filename):
+    """
+    Load questions from a JSON file.
+
+    Args:
+        filename (str): The file to load questions from.
+
+    Returns:
+        list: A list of questions.
+    """
+    try:
+        with open(filename, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []  # Return an empty list if the file doesn't exist
+
+def save_questions(filename, questions):
+    """
+    Save questions to a JSON file.
+
+    Args:
+        filename (str): The file to save questions to.
+        questions (list): The list of questions to save.
+    """
+    with open(filename, 'w') as file:
+        json.dump(questions, file, indent=4)
+
 def display_menu():
     """
     Display the main menu and return the user's choice.
@@ -9,13 +38,13 @@ def display_menu():
     choice = input("Enter your choice (1, 2, or 3): ").strip()
     return choice
 
-
-def view_and_add_questions(questions):
+def view_and_add_questions(questions, filename):
     """
     View existing questions and allow the user to add new ones.
 
     Args:
         questions (list): The current list of quiz questions.
+        filename (str): The file to save questions to.
     """
     print("\nCurrent Questions:")
     for i, q in enumerate(questions, start=1):
@@ -41,8 +70,8 @@ def view_and_add_questions(questions):
             "answer": correct_answer
         }
         questions.append(new_question)
+        save_questions(filename, questions)
         print("\nNew question added successfully!")
-
 
 def play_quiz(questions):
     """
@@ -73,23 +102,12 @@ def play_quiz(questions):
 
     print(f"\nQuiz Over! You scored {score}/{len(questions)}.")
 
-
 def quiz_game_with_menu():
     """
     Main function to run the quiz game with a menu.
     """
-    questions = [
-        {
-            "question": "What is the capital of France?",
-            "options": ["A) Paris", "B) London", "C) Berlin", "D) Madrid"],
-            "answer": "A"
-        },
-        {
-            "question": "What is 5 + 3?",
-            "options": ["A) 5", "B) 8", "C) 9", "D) 7"],
-            "answer": "B"
-        }
-    ]
+    filename = "questions.json"
+    questions = load_questions(filename)
 
     while True:
         choice = display_menu()
@@ -97,12 +115,11 @@ def quiz_game_with_menu():
         if choice == '1':
             play_quiz(questions)
         elif choice == '2':
-            view_and_add_questions(questions)
+            view_and_add_questions(questions, filename)
         elif choice == '3':
             print("\nThank you for playing! Goodbye!")
             break
         else:
             print("\nInvalid choice! Please enter 1, 2, or 3.")
-
 
 quiz_game_with_menu()
