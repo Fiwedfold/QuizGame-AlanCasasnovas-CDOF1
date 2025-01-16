@@ -56,17 +56,27 @@ def view_and_add_questions(questions, filename):
     add_new = input("\nDo you want to add a new question? (yes/no): ").strip().lower()
     if add_new in ['yes', 'y']:
         question_text = input("Enter the question text: ").strip()
-        options = [
-            input("Enter option A: ").strip(),
-            input("Enter option B: ").strip(),
-            input("Enter option C: ").strip(),
-            input("Enter option D: ").strip(),
-        ]
-        correct_answer = input("Enter the correct answer (A, B, C, or D): ").strip().upper()
+
+        num_options = 0
+        while num_options not in [2, 3, 4]:
+            try:
+                num_options = int(input("Enter the number of options (2, 3, or 4): ").strip())
+            except ValueError:
+                print("Please enter a valid number.")
+
+        options = []
+        for i in range(num_options):
+            option = input(f"Enter option {chr(65 + i)}: ").strip()
+            options.append(f"{chr(65 + i)}) {option}")
+
+        correct_answer = ""
+        valid_answers = [chr(65 + i) for i in range(num_options)]
+        while correct_answer not in valid_answers:
+            correct_answer = input(f"Enter the correct answer ({', '.join(valid_answers)}): ").strip().upper()
 
         new_question = {
             "question": question_text,
-            "options": [f"A) {options[0]}", f"B) {options[1]}", f"C) {options[2]}", f"D) {options[3]}"],
+            "options": options,
             "answer": correct_answer
         }
         questions.append(new_question)
@@ -92,7 +102,7 @@ def play_quiz(questions):
         for option in q["options"]:
             print(option)
 
-        answer = input("Enter your answer (A, B, C, or D): ").strip().upper()
+        answer = input("Enter your answer: ").strip().upper()
 
         if answer == q["answer"]:
             print("Correct!")
